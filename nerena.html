@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nérena — Woven with Love, Crafted for Life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F8F4EE;
+  --cream-deep:#F1EBE0;
+  --beige:#DCCCB8;
+  --brown:#8B6F57;
+  --brown-deep:#6B5440;
+  --sage:#A8B59A;
+  --sage-deep:#8A9A7C;
+  --gold:#C6A664;
+  --ink:#3A332C;
+  --ink-soft:#6b6258;
+  --thread: repeating-linear-gradient(90deg, rgba(139,111,87,0.10) 0px, rgba(139,111,87,0.10) 1px, transparent 1px, transparent 7px);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:'Jost',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4,.serif{font-family:'Fraunces',serif;}
+.script{font-family:'Cormorant Garamond',serif;font-style:italic;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+section{position:relative;}
+
+/* ---------- Accessibility ---------- */
+a:focus-visible,button:focus-visible,input:focus-visible{
+  outline:2px solid var(--brown-deep);
+  outline-offset:3px;
+  border-radius:2px;
+}
+.skip-link{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:10px 18px;z-index:999;}
+.skip-link:focus{left:10px;top:10px;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;scroll-behavior:auto !important;}
+}
+
+/* ---------- Eyebrow / labels ---------- */
+.eyebrow{
+  font-family:'Jost',sans-serif;
+  font-size:12px;
+  letter-spacing:0.28em;
+  text-transform:uppercase;
+  color:var(--brown);
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:18px;
+}
+.eyebrow::before{
+  content:'';
+  width:28px;height:1px;
+  background:var(--gold);
+}
+
+/* ---------- Reveal on scroll ---------- */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-stagger > *{transition-delay:calc(var(--i,0) * 0.09s);}
+
+/* ============ NAV ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 48px;
+  background:rgba(248,244,238,0);
+  transition:background 0.5s ease, padding 0.5s ease, box-shadow .5s ease;
+}
+header.scrolled{
+  background:rgba(248,244,238,0.92);
+  backdrop-filter:blur(10px);
+  padding:14px 48px;
+  box-shadow:0 1px 0 rgba(139,111,87,0.18);
+}
+.logo{
+  font-family:'Fraunces',serif;
+  font-size:26px;
+  font-weight:500;
+  letter-spacing:0.02em;
+  color:var(--brown-deep);
+}
+.logo span{color:var(--sage-deep);}
+nav ul{display:flex;gap:38px;list-style:none;}
+nav a{
+  font-size:13px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ink);position:relative;padding-bottom:6px;
+}
+nav a::after{
+  content:'';position:absolute;left:0;bottom:0;width:0;height:1px;
+  background:var(--gold);transition:width .35s ease;
+}
+nav a:hover::after,nav a:focus-visible::after{width:100%;}
+.nav-icons{display:flex;align-items:center;gap:22px;}
+.nav-icons a{font-size:18px;}
+.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+.menu-toggle span{width:24px;height:1.5px;background:var(--ink);display:block;}
+
+/* ============ HERO ============ */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  position:relative;
+  padding:140px 48px 80px;
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 20%, rgba(168,181,154,0.18), transparent 60%),
+    radial-gradient(ellipse 50% 60% at 10% 90%, rgba(198,166,100,0.12), transparent 60%),
+    var(--cream);
+  overflow:hidden;
+}
+.hero-weave{
+  position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 26px, rgba(139,111,87,0.05) 26px 27px),
+    repeating-linear-gradient(90deg, transparent 0 26px, rgba(139,111,87,0.05) 26px 27px);
+  opacity:0.6;
+  mask-image:linear-gradient(180deg, black, transparent 85%);
+}
+.hero-inner{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1.05fr 0.95fr;
+  gap:64px;align-items:center;
+  max-width:1240px;margin:0 auto;width:100%;
+}
+.hero-tag{
+  font-family:'Fraunces',serif;
+  font-size:clamp(40px,6vw,72px);
+  line-height:1.06;
+  font-weight:500;
+  color:var(--ink);
+  margin-bottom:26px;
+}
+.hero-tag em{font-style:italic;color:var(--brown-deep);font-weight:500;}
+.hero-sub{
+  font-size:17px;line-height:1.8;color:var(--ink-soft);
+  max-width:440px;margin-bottom:38px;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:17px 36px;
+  background:var(--brown-deep);
+  color:var(--cream);
+  font-size:13px;letter-spacing:0.16em;text-transform:uppercase;
+  border:1px solid var(--brown-deep);
+  border-radius:2px;
+  cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:color .4s ease, border-color .4s ease;
+}
+.btn::before{
+  content:'';position:absolute;inset:0;
+  background:var(--sage-deep);
+  transform:translateX(-101%);
+  transition:transform .45s cubic-bezier(.2,.8,.2,1);
+  z-index:0;
+}
+.btn span{position:relative;z-index:1;display:flex;align-items:center;gap:12px;}
+.btn:hover::before,.btn:focus-visible::before{transform:translateX(0);}
+.btn:hover,.btn:focus-visible{border-color:var(--sage-deep);}
+.btn.ghost{
+  background:transparent;color:var(--brown-deep);border-color:var(--brown);
+}
+.btn.ghost::before{background:var(--brown-deep);}
+.btn.ghost:hover{color:var(--cream);}
+.btn .arrow{transition:transform .35s ease;}
+.btn:hover .arrow{transform:translateX(5px);}
+
+.hero-visual{
+  position:relative;
+  aspect-ratio:4/5;
+  border-radius:4px;
+  overflow:hidden;
+  box-shadow:0 40px 80px -30px rgba(107,84,64,0.45);
+}
+.hero-visual img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);}
+.hero-visual::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(58,51,44,0) 55%, rgba(58,51,44,0.45) 100%);
+}
+.hero-badge{
+  position:absolute;bottom:24px;left:24px;right:24px;
+  z-index:3;
+  color:#fff;
+  display:flex;justify-content:space-between;align-items:flex-end;
+}
+.hero-badge .label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.85;}
+.hero-badge .name{font-family:'Fraunces',serif;font-size:20px;margin-top:4px;}
+.hero-orbit{
+  position:absolute;
+  width:120px;height:120px;
+  border:1px solid var(--gold);
+  border-radius:50%;
+  top:-30px;right:-30px;
+  opacity:.5;
+}
+.scroll-cue{
+  position:absolute;left:48px;bottom:36px;
+  display:flex;align-items:center;gap:12px;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);
+  z-index:2;
+}
+.scroll-line{width:1px;height:40px;background:var(--brown);position:relative;overflow:hidden;}
+.scroll-line::after{
+  content:'';position:absolute;top:0;left:0;width:100%;height:14px;background:var(--gold);
+  animation:scrollDown 2.2s ease-in-out infinite;
+}
+@keyframes scrollDown{0%{top:-14px;}60%{top:40px;}100%{top:40px;}}
+
+/* ============ OUR STORY ============ */
+.story{padding:160px 48px;position:relative;}
+.story-grid{
+  display:grid;grid-template-columns:0.9fr 1.1fr;gap:80px;align-items:center;
+}
+.story-frame{
+  position:relative;
+}
+.story-img{
+  border-radius:4px;
+  overflow:hidden;
+  aspect-ratio:3/4;
+}
+.story-img img{width:100%;height:100%;object-fit:cover;}
+.story-img.float{
+  position:absolute;
+  width:46%;
+  bottom:-12%;left:-14%;
+  border:6px solid var(--cream);
+  box-shadow:0 30px 60px -20px rgba(107,84,64,0.4);
+}
+.story-text h2{
+  font-size:clamp(32px,4vw,46px);
+  line-height:1.18;
+  font-weight:500;
+  margin-bottom:24px;
+}
+.story-text p{
+  font-size:16px;line-height:1.9;color:var(--ink-soft);
+  margin-bottom:18px;
+  max-width:520px;
+}
+.story-signature{
+  margin-top:30px;
+  display:flex;align-items:center;gap:18px;
+}
+.signature-mark{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:34px;color:var(--brown-deep);
+}
+.signature-sub{font-size:12px;letter-spacing:.1em;color:var(--ink-soft);line-height:1.5;}
+
+/* ============ FEATURED COLLECTIONS ============ */
+.collections{padding:120px 48px;background:var(--cream-deep);position:relative;}
+.section-head{
+  text-align:center;max-width:640px;margin:0 auto 70px;
+}
+.section-head h2{font-size:clamp(30px,4vw,44px);font-weight:500;margin-bottom:16px;}
+.section-head p{color:var(--ink-soft);font-size:15px;line-height:1.8;}
+.section-head.left{text-align:left;margin:0 0 70px;}
+
+.collection-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+}
+.collection-card{
+  position:relative;
+  border-radius:4px;
+  overflow:hidden;
+  aspect-ratio:3/4;
+  cursor:pointer;
+}
+.collection-card img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .8s cubic-bezier(.2,.8,.2,1);
+}
+.collection-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(58,51,44,0) 35%, rgba(58,51,44,0.78) 100%);
+  z-index:1;
+}
+.collection-card:hover img{transform:scale(1.08);}
+.collection-info{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:26px 22px;color:#fff;
+}
+.collection-info .num{font-size:11px;letter-spacing:.2em;color:var(--gold);margin-bottom:8px;display:block;}
+.collection-info h3{font-size:21px;font-weight:500;margin-bottom:10px;}
+.collection-link{
+  font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:8px;
+  border-bottom:1px solid rgba(255,255,255,0.4);
+  padding-bottom:4px;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .4s ease, transform .4s ease;
+}
+.collection-card:hover .collection-link{opacity:1;transform:translateY(0);}
+
+/* ============ WHY CHOOSE ============ */
+.why{padding:140px 48px;}
+.why-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--beige);
+  border:1px solid var(--beige);
+}
+.why-card{
+  background:var(--cream);
+  padding:54px 34px;
+  text-align:left;
+  transition:background .4s ease;
+}
+.why-card:hover{background:var(--cream-deep);}
+.why-icon{
+  width:52px;height:52px;
+  margin-bottom:28px;
+  position:relative;
+}
+.why-icon svg{width:100%;height:100%;stroke:var(--brown-deep);fill:none;stroke-width:1.1;}
+.why-card h3{font-size:19px;font-weight:500;margin-bottom:14px;}
+.why-card p{font-size:14.5px;line-height:1.75;color:var(--ink-soft);}
+
+/* ============ CRAFTING PROCESS ============ */
+.process{
+  padding:150px 48px;
+  background:var(--brown-deep);
+  color:var(--cream);
+  position:relative;
+  overflow:hidden;
+}
+.process::before{
+  content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(45deg, rgba(248,244,238,0.025) 0 2px, transparent 2px 14px);
+}
+.process .section-head h2,.process .section-head p{color:var(--cream);}
+.process .section-head p{opacity:.75;}
+.process .eyebrow{color:var(--gold);}
+.process .eyebrow::before{background:var(--gold);}
+
+.timeline{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:0;
+  margin-top:20px;
+}
+.timeline::before{
+  content:'';
+  position:absolute;top:26px;left:5%;right:5%;height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold) 8%, var(--gold) 92%, transparent);
+}
+.tl-step{
+  text-align:center;
+  padding:0 14px;
+  position:relative;
+}
+.tl-dot{
+  width:54px;height:54px;border-radius:50%;
+  background:var(--brown-deep);
+  border:1px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 26px;
+  position:relative;z-index:2;
+  font-family:'Fraunces',serif;font-style:italic;font-size:18px;color:var(--gold);
+  transition:transform .4s ease, background .4s ease;
+}
+.tl-step:hover .tl-dot{transform:scale(1.12);background:var(--gold);color:var(--brown-deep);}
+.tl-step h3{font-size:18px;font-weight:500;margin-bottom:10px;font-family:'Fraunces',serif;}
+.tl-step p{font-size:13.5px;line-height:1.7;opacity:.7;max-width:190px;margin:0 auto;}
+
+/* ============ TESTIMONIALS ============ */
+.testimonials{padding:140px 48px;}
+.testi-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+}
+.testi-card{
+  background:var(--cream-deep);
+  padding:40px 34px;
+  border-radius:4px;
+  border:1px solid var(--beige);
+  position:relative;
+  transition:transform .4s ease, box-shadow .4s ease;
+}
+.testi-card:hover{transform:translateY(-6px);box-shadow:0 24px 50px -25px rgba(107,84,64,0.35);}
+.testi-quote-mark{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:54px;
+  color:var(--gold);
+  line-height:1;
+  display:block;
+  margin-bottom:6px;
+}
+.testi-card p{font-size:15px;line-height:1.85;color:var(--ink);margin-bottom:28px;}
+.testi-person{display:flex;align-items:center;gap:14px;}
+.testi-person img{
+  width:48px;height:48px;border-radius:50%;object-fit:cover;
+  border:2px solid var(--cream);box-shadow:0 0 0 1px var(--beige);
+}
+.testi-person .name{font-size:14px;font-weight:500;}
+.testi-person .loc{font-size:12px;color:var(--ink-soft);}
+.stars{color:var(--gold);font-size:13px;letter-spacing:2px;margin-bottom:14px;}
+
+/* ============ GALLERY ============ */
+.gallery{padding:0 0 140px;}
+.gallery .section-head{padding:0 48px;}
+.gallery-grid{
+  display:grid;grid-template-columns:repeat(6,1fr);
+  gap:6px;
+  padding:0 48px;
+}
+.g-item{
+  position:relative;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  cursor:pointer;
+}
+.g-item:nth-child(1),.g-item:nth-child(8){grid-row:span 2;grid-column:span 2;aspect-ratio:auto;}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease, filter .6s ease;filter:saturate(0.95);}
+.g-item::after{
+  content:'⌘';
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(58,51,44,0.0);
+  color:#fff;font-size:22px;opacity:0;
+  transition:opacity .4s ease, background .4s ease;
+}
+.g-item:hover::after{opacity:1;background:rgba(58,51,44,0.32);}
+.g-item:hover img{transform:scale(1.06);}
+
+/* ============ NEWSLETTER ============ */
+.newsletter{
+  padding:120px 48px;
+  background:var(--sage);
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+}
+.newsletter::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 20% 30%, rgba(255,255,255,0.18), transparent 50%),
+             radial-gradient(circle at 80% 70%, rgba(58,51,44,0.08), transparent 50%);
+}
+.newsletter-inner{position:relative;z-index:2;max-width:560px;margin:0 auto;}
+.newsletter h2{
+  font-size:clamp(28px,4vw,40px);font-weight:500;color:var(--ink);margin-bottom:16px;
+}
+.newsletter p{font-size:15.5px;color:rgba(58,51,44,0.75);margin-bottom:36px;line-height:1.8;}
+.newsletter-form{
+  display:flex;gap:0;
+  border-bottom:1.5px solid var(--ink);
+  padding-bottom:14px;
+}
+.newsletter-form input{
+  flex:1;background:transparent;border:none;
+  font-family:'Jost',sans-serif;font-size:15px;color:var(--ink);
+  padding:6px 4px;
+}
+.newsletter-form input::placeholder{color:rgba(58,51,44,0.55);}
+.newsletter-form button{
+  background:none;border:none;
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink);font-family:'Jost',sans-serif;
+  display:flex;align-items:center;gap:8px;cursor:pointer;
+  white-space:nowrap;
+}
+.newsletter-form button .arrow{transition:transform .35s ease;}
+.newsletter-form button:hover .arrow{transform:translateX(5px);}
+.newsletter-note{margin-top:16px;font-size:12px;color:rgba(58,51,44,0.6);}
+
+/* ============ FOOTER ============ */
+footer{
+  background:var(--ink);
+  color:var(--cream);
+  padding:90px 48px 32px;
+}
+.footer-grid{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;
+  gap:50px;
+  padding-bottom:60px;
+  border-bottom:1px solid rgba(248,244,238,0.12);
+}
+.footer-logo{font-family:'Fraunces',serif;font-size:26px;margin-bottom:18px;}
+.footer-logo span{color:var(--sage);}
+.footer-about p{font-size:14px;line-height:1.85;color:rgba(248,244,238,0.65);max-width:300px;}
+.footer-col h4{
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:22px;
+}
+.footer-col ul{list-style:none;}
+.footer-col li{margin-bottom:13px;}
+.footer-col a{font-size:14.5px;color:rgba(248,244,238,0.75);transition:color .3s ease, padding-left .3s ease;}
+.footer-col a:hover{color:var(--cream);padding-left:4px;}
+.footer-social{display:flex;gap:14px;margin-top:8px;}
+.footer-social a{
+  width:38px;height:38px;border:1px solid rgba(248,244,238,0.25);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:14px;transition:border-color .3s ease, background .3s ease;
+}
+.footer-social a:hover{border-color:var(--gold);background:rgba(198,166,100,0.12);}
+.footer-news input{
+  width:100%;background:rgba(248,244,238,0.06);border:1px solid rgba(248,244,238,0.18);
+  padding:13px 16px;color:var(--cream);font-family:'Jost',sans-serif;font-size:13.5px;
+  border-radius:2px;margin-bottom:12px;
+}
+.footer-news input::placeholder{color:rgba(248,244,238,0.45);}
+.footer-news button{
+  width:100%;padding:13px;background:var(--sage-deep);color:var(--ink);
+  border:none;font-size:12px;letter-spacing:.14em;text-transform:uppercase;border-radius:2px;cursor:pointer;
+  transition:background .3s ease;
+}
+.footer-news button:hover{background:var(--gold);}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:28px;font-size:12.5px;color:rgba(248,244,238,0.5);
+  flex-wrap:wrap;gap:12px;
+}
+.footer-bottom a{margin-left:22px;color:rgba(248,244,238,0.5);}
+.footer-bottom a:hover{color:var(--cream);}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-visual{max-width:480px;margin:0 auto;}
+  .story-grid{grid-template-columns:1fr;gap:90px;}
+  .story-img.float{width:48%;bottom:-10%;left:-8%;}
+  .collection-grid{grid-template-columns:repeat(2,1fr);}
+  .why-grid{grid-template-columns:repeat(2,1fr);}
+  .timeline{grid-template-columns:repeat(5,1fr);}
+  .testi-grid{grid-template-columns:1fr;gap:22px;max-width:560px;margin:0 auto;}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:40px;}
+  .gallery-grid{grid-template-columns:repeat(4,1fr);}
+}
+@media (max-width:768px){
+  header{padding:18px 24px;}
+  nav,.nav-icons .nav-search,.nav-icons .nav-account{display:none;}
+  .menu-toggle{display:flex;}
+  .wrap,.hero,.story,.collections,.why,.process,.testimonials,.newsletter,footer{padding-left:24px;padding-right:24px;}
+  .gallery .section-head{padding-left:24px;padding-right:24px;}
+  .gallery-grid{padding-left:24px;padding-right:24px;grid-template-columns:repeat(3,1fr);}
+  .hero{padding-top:120px;}
+  .hero-tag{font-size:38px;}
+  .story-img.float{position:relative;width:70%;margin:24px auto 0;left:0;bottom:0;border-width:4px;}
+  .story-frame{margin-bottom:0;}
+  .collection-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr;}
+  .timeline{grid-template-columns:1fr;gap:48px;}
+  .timeline::before{display:none;}
+  .footer-grid{grid-template-columns:1fr;gap:42px;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;}
+  .footer-bottom div a{margin-left:0;margin-right:18px;}
+  .newsletter-form{flex-direction:column;gap:16px;border-bottom:none;}
+  .newsletter-form input{border-bottom:1.5px solid var(--ink);padding-bottom:14px;}
+  .scroll-cue{display:none;}
+}
+
+/* mobile nav drawer */
+.mobile-nav{
+  position:fixed;top:0;right:-100%;width:78%;max-width:340px;height:100vh;
+  background:var(--cream);z-index:300;
+  padding:100px 36px 40px;
+  transition:right .45s cubic-bezier(.2,.8,.2,1);
+  box-shadow:-10px 0 40px rgba(0,0,0,0.15);
+}
+.mobile-nav.open{right:0;}
+.mobile-nav ul{list-style:none;display:flex;flex-direction:column;gap:28px;}
+.mobile-nav a{font-family:'Fraunces',serif;font-size:24px;}
+.nav-overlay{
+  position:fixed;inset:0;background:rgba(58,51,44,0.4);z-index:250;
+  opacity:0;pointer-events:none;transition:opacity .4s ease;
+}
+.nav-overlay.open{opacity:1;pointer-events:auto;}
+.mobile-close{position:absolute;top:30px;right:30px;font-size:28px;background:none;border:none;color:var(--ink);cursor:pointer;}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- ============ HEADER ============ -->
+<header id="siteHeader">
+  <a href="#main" class="logo">Né<span>re</span>na</a>
+  <nav aria-label="Primary">
+    <ul>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#collections">Shop</a></li>
+      <li><a href="#process">Craft</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#newsletter">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="nav-icons">
+    <a href="#" class="nav-search" aria-label="Search">⌕</a>
+    <a href="#" class="nav-account" aria-label="Account">⚇</a>
+    <a href="#" aria-label="Bag">⛍</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="nav-overlay" id="navOverlay"></div>
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+  <button class="mobile-close" id="mobileClose" aria-label="Close menu">×</button>
+  <ul>
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#collections">Shop</a></li>
+    <li><a href="#process">Craft</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#newsletter">Contact</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero-weave" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-copy reveal in">
+      <div class="eyebrow">Handmade in small batches</div>
+      <h1 class="hero-tag">Nérena — <em>Woven with Love,</em><br>Crafted for Life.</h1>
+      <p class="hero-sub">Each bag begins as raw cotton and wool, and ends as something only a daughter's name could inspire — warm, considered, made to last generations, not seasons.</p>
+      <a href="#collections" class="btn"><span>Explore Collection <span class="arrow">→</span></span></a>
+    </div>
+    <div class="hero-visual reveal in" style="transition-delay:.15s">
+      <img src="https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?q=80&w=1200&auto=format&fit=crop" alt="Handwoven cream and beige cotton tote bag resting on a linen surface in soft natural light">
+      <div class="hero-orbit" aria-hidden="true"></div>
+      <div class="hero-badge">
+        <div>
+          <div class="label">No. 014</div>
+          <div class="name">The Aria Tote</div>
+        </div>
+        <div class="label">Cotton · Hand-knotted</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="scroll-line"></div>Scroll</div>
+</section>
+
+<!-- ============ OUR STORY ============ -->
+<section class="story" id="story">
+  <div class="wrap story-grid">
+    <div class="story-frame reveal">
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1521577352947-9bb58764b69a?q=80&w=900&auto=format&fit=crop" alt="Artisan's hands weaving cotton thread on a wooden loom">
+      </div>
+      <div class="story-img float">
+        <img src="https://images.unsplash.com/photo-1564859228273-274232fdb516?q=80&w=600&auto=format&fit=crop" alt="Close-up of finished woven wool bag handle detail">
+      </div>
+    </div>
+    <div class="story-text reveal" style="transition-delay:.1s">
+      <div class="eyebrow">Our Story</div>
+      <h2>A daughter's name, <br>a mother's hands.</h2>
+      <p>Nérena began the way most lasting things do — quietly, at a kitchen table, with thread and a name. Our founder gave her daughter the name Nérena, and in the years that followed, found herself returning to the same word for the craft she was building: something gentle, something hers, something that would outlast a trend.</p>
+      <p>What started as handwoven gifts for family became a small workshop of artisans who share one belief — that an object made slowly, by hand, carries the warmth of the people who made it. Every Nérena piece is still cut, woven, and stitched the way the first one was: with care that cannot be automated.</p>
+      <div class="story-signature">
+        <div class="signature-mark">Nérena</div>
+        <div class="signature-sub">Founder &amp; Lead Artisan<br>Est. in a home workshop, made for every home</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURED COLLECTIONS ============ -->
+<section class="collections" id="collections">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="justify-content:center;">Featured Collections</div>
+      <h2>Made by hand, chosen with intention</h2>
+      <p>Four collections, each shaped by a different material story — but all woven from the same patience.</p>
+    </div>
+    <div class="collection-grid reveal-stagger">
+      <div class="collection-card reveal" style="--i:0">
+        <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?q=80&w=700&auto=format&fit=crop" alt="Handwoven natural cotton handbag">
+        <div class="collection-info">
+          <span class="num">01 — Cotton</span>
+          <h3>Cotton Handbags</h3>
+          <a href="#" class="collection-link">Shop the edit →</a>
+        </div>
+      </div>
+      <div class="collection-card reveal" style="--i:1">
+        <img src="https://images.unsplash.com/photo-1591561954040-6d4bb6e7b9c8?q=80&w=700&auto=format&fit=crop" alt="Wool knit scarf and accessories in earthy tones">
+        <div class="collection-info">
+          <span class="num">02 — Wool</span>
+          <h3>Wool Accessories</h3>
+          <a href="#" class="collection-link">Shop the edit →</a>
+        </div>
+      </div>
+      <div class="collection-card reveal" style="--i:2">
+        <img src="https://images.unsplash.com/photo-1517332397429-2e3b8f9c0eba?q=80&w=700&auto=format&fit=crop" alt="Handmade woven home decor basket on a wooden shelf">
+        <div class="collection-info">
+          <span class="num">03 — Decor</span>
+          <h3>Handmade Decor</h3>
+          <a href="#" class="collection-link">Shop the edit →</a>
+        </div>
+      </div>
+      <div class="collection-card reveal" style="--i:3">
+        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=700&auto=format&fit=crop" alt="Limited edition gold-trimmed artisan handbag">
+        <div class="collection-info">
+          <span class="num">04 — Rare</span>
+          <h3>Limited Edition</h3>
+          <a href="#" class="collection-link">Shop the edit →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY CHOOSE NÉRENA ============ -->
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="justify-content:center;">Why Nérena</div>
+      <h2>What you're really holding</h2>
+      <p>Not just a bag — a small protest against the disposable.</p>
+    </div>
+    <div class="why-grid reveal-stagger">
+      <div class="why-card reveal" style="--i:0">
+        <div class="why-icon"><svg viewBox="0 0 48 48"><path d="M24 6C16 6 9 13 9 22c0 9 7 16 15 16s15-7 15-16C39 13 32 6 24 6Z"/><path d="M16 24c2-3 6-5 8-5s6 2 8 5"/><circle cx="24" cy="34" r="2.4"/></svg></div>
+        <h3>Handmade with Care</h3>
+        <p>Every stitch passes through a human hand — no two pieces, and no two flaws, are ever quite the same.</p>
+      </div>
+      <div class="why-card reveal" style="--i:1">
+        <div class="why-icon"><svg viewBox="0 0 48 48"><path d="M24 8c8 4 14 4 14 4s1 18-14 28C9 30 10 12 10 12s6 0 14-4Z"/><path d="M24 20v14"/><path d="M19 25c3 2 7 2 10 0"/></svg></div>
+        <h3>Sustainable Materials</h3>
+        <p>Raw cotton, undyed wool, and natural fibers sourced with the same respect we give the finished piece.</p>
+      </div>
+      <div class="why-card reveal" style="--i:2">
+        <div class="why-icon"><svg viewBox="0 0 48 48"><path d="M24 6 4 18l20 12 20-12Z"/><path d="M10 23v12l14 8 14-8V23"/></svg></div>
+        <h3>Unique Designs</h3>
+        <p>Small-batch runs and one-of-a-kind weaves mean what you carry is rarely carried by anyone else.</p>
+      </div>
+      <div class="why-card reveal" style="--i:3">
+        <div class="why-icon"><svg viewBox="0 0 48 48"><path d="M24 4 6 12v10c0 12 8 19 18 22 10-3 18-10 18-22V12Z"/><path d="M17 24l5 5 10-11"/></svg></div>
+        <h3>Ethical Craftsmanship</h3>
+        <p>Fair wages, safe workshops, and artisans who are named, known, and proud to sign their work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CRAFTING PROCESS ============ -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="justify-content:center;">The Craft</div>
+      <h2>Five hands, one piece</h2>
+      <p>From sketch to doorstep — the same five stages every Nérena piece has followed since the very first one.</p>
+    </div>
+    <div class="timeline reveal-stagger">
+      <div class="tl-step reveal" style="--i:0"><div class="tl-dot">01</div><h3>Design</h3><p>Sketched by hand, tested against real shoulders and real days.</p></div>
+      <div class="tl-step reveal" style="--i:1"><div class="tl-dot">02</div><h3>Weave</h3><p>Cotton and wool threads are woven on traditional looms, slowly.</p></div>
+      <div class="tl-step reveal" style="--i:2"><div class="tl-dot">03</div><h3>Stitch</h3><p>Seams are hand-stitched for strength that machines can't replicate.</p></div>
+      <div class="tl-step reveal" style="--i:3"><div class="tl-dot">04</div><h3>Finish</h3><p>Hardware, lining, and gold accents are set by a single artisan.</p></div>
+      <div class="tl-step reveal" style="--i:4"><div class="tl-dot">05</div><h3>Deliver</h3><p>Wrapped in cloth, not plastic, and sent straight from the workshop.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonials" id="testimonials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="justify-content:center;">Loved, Daily</div>
+      <h2>Carried by people like you</h2>
+    </div>
+    <div class="testi-grid reveal-stagger">
+      <div class="testi-card reveal" style="--i:0">
+        <span class="testi-quote-mark">“</span>
+        <div class="stars">★★★★★</div>
+        <p>The Aria Tote has been to three countries with me and still looks better than the day I bought it. You can feel that real hands made this.</p>
+        <div class="testi-person">
+          <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=200&auto=format&fit=crop" alt="">
+          <div><div class="name">Camille Dorsay</div><div class="loc">Lyon, France</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="--i:1">
+        <span class="testi-quote-mark">“</span>
+        <div class="stars">★★★★★</div>
+        <p>I gifted my mother a wool wrap from the Limited Edition line — she cried opening it. That's the kind of brand this is.</p>
+        <div class="testi-person">
+          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=200&auto=format&fit=crop" alt="">
+          <div><div class="name">Asha Verma</div><div class="loc">Jaipur, India</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="--i:2">
+        <span class="testi-quote-mark">“</span>
+        <div class="stars">★★★★★</div>
+        <p>Sustainable, beautiful, and genuinely useful — rare to find all three. The packaging alone felt like an occasion.</p>
+        <div class="testi-person">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop" alt="">
+          <div><div class="name">Naomi Reyes</div><div class="loc">Lisbon, Portugal</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery" id="gallery">
+  <div class="section-head reveal">
+    <div class="eyebrow" style="justify-content:center;">@nerena.handmade</div>
+    <h2>Worn in the wild</h2>
+  </div>
+  <div class="gallery-grid reveal-stagger">
+    <div class="g-item reveal" style="--i:0"><img src="https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?q=80&w=700&auto=format&fit=crop" alt="Cotton tote bag styled outdoors"></div>
+    <div class="g-item reveal" style="--i:1"><img src="https://images.unsplash.com/photo-1591561954040-6d4bb6e7b9c8?q=80&w=400&auto=format&fit=crop" alt="Wool accessory flat lay"></div>
+    <div class="g-item reveal" style="--i:2"><img src="https://images.unsplash.com/photo-1564859228273-274232fdb516?q=80&w=400&auto=format&fit=crop" alt="Bag handle detail"></div>
+    <div class="g-item reveal" style="--i:3"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=400&auto=format&fit=crop" alt="Limited edition bag close up"></div>
+    <div class="g-item reveal" style="--i:4"><img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?q=80&w=400&auto=format&fit=crop" alt="Cotton handbag on shoulder"></div>
+    <div class="g-item reveal" style="--i:5"><img src="https://images.unsplash.com/photo-1517332397429-2e3b8f9c0eba?q=80&w=400&auto=format&fit=crop" alt="Woven decor basket"></div>
+    <div class="g-item reveal" style="--i:6"><img src="https://images.unsplash.com/photo-1521577352947-9bb58764b69a?q=80&w=400&auto=format&fit=crop" alt="Weaving in progress"></div>
+    <div class="g-item reveal" style="--i:7"><img src="https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?q=80&w=700&auto=format&fit=crop" alt="Tote bag in natural light"></div>
+    <div class="g-item reveal" style="--i:8"><img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=400&auto=format&fit=crop" alt="Customer wearing Nérena piece"></div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="newsletter" id="newsletter">
+  <div class="newsletter-inner reveal">
+    <h2>Join the Nérena family</h2>
+    <p>Receive updates on new collections, limited releases, and the stories behind the stitches — before anyone else does.</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault();">
+      <label for="nlEmail" class="visually-hidden" style="position:absolute;left:-9999px;">Email address</label>
+      <input type="email" id="nlEmail" placeholder="Your email address" required>
+      <button type="submit"><span>Subscribe</span> <span class="arrow">→</span></button>
+    </form>
+    <p class="newsletter-note">No spam — only what's woven, when it's ready.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-logo">Né<span>re</span>na</div>
+        <p>Handcrafted cotton and wool handbags, accessories, and lifestyle pieces — woven with love, crafted for life, named after the daughter who inspired it all.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Pinterest">PT</a>
+          <a href="#" aria-label="Facebook">FB</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>About Us</h4>
+        <ul>
+          <li><a href="#story">Our Story</a></li>
+          <li><a href="#why">Our Values</a></li>
+          <li><a href="#process">Our Craft</a></li>
+          <li><a href="#">Sustainability</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#collections">Cotton Handbags</a></li>
+          <li><a href="#collections">Wool Accessories</a></li>
+          <li><a href="#collections">Handmade Decor</a></li>
+          <li><a href="#collections">Limited Edition</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-news">
+        <h4>Stay in Touch</h4>
+        <form onsubmit="event.preventDefault();">
+          <label for="footerEmail" style="position:absolute;left:-9999px;">Email address</label>
+          <input type="email" id="footerEmail" placeholder="Email address" required>
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Nérena. All rights reserved.</div>
+      <div><a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Shipping</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// header scroll state
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 40);
+}, {passive:true});
+
+// mobile nav
+const menuToggle = document.getElementById('menuToggle');
+const mobileNav = document.getElementById('mobileNav');
+const navOverlay = document.getElementById('navOverlay');
+const mobileClose = document.getElementById('mobileClose');
+function openNav(){mobileNav.classList.add('open');navOverlay.classList.add('open');menuToggle.setAttribute('aria-expanded','true');}
+function closeNav(){mobileNav.classList.remove('open');navOverlay.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');}
+menuToggle.addEventListener('click', openNav);
+mobileClose.addEventListener('click', closeNav);
+navOverlay.addEventListener('click', closeNav);
+mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeNav));
+
+// scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:0.15});
+reveals.forEach(el=>io.observe(el));
+
+// subtle parallax on hero visual
+const heroVisual = document.querySelector('.hero-visual');
+window.addEventListener('scroll', ()=>{
+  if(!heroVisual) return;
+  const y = window.scrollY;
+  if(y < window.innerHeight){
+    heroVisual.style.transform = `translateY(${y*0.08}px)`;
+  }
+},{passive:true});
+</script>
+</body>
+</html>
